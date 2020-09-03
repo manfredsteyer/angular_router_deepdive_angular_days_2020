@@ -1,0 +1,180 @@
+{
+  "version": 1,
+  "projects": {
+    "flight-app": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "apps/flight-app",
+      "sourceRoot": "apps/flight-app/src",
+      "prefix": "flight-workspace",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/flight-app",
+            "index": "apps/flight-app/src/index.html",
+            "main": "apps/flight-app/src/main.ts",
+            "polyfills": "apps/flight-app/src/polyfills.ts",
+            "tsConfig": "apps/flight-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/flight-app/src/favicon.ico",
+              "apps/flight-app/src/assets"
+            ],
+            "styles": [
+              "apps/flight-app/src/styles.css",
+              "apps/flight-app/src/assets/css/bootstrap.min.css",
+              "apps/flight-app/src/assets/css/paper-dashboard.css",
+              "apps/flight-app/src/assets/css/demo.css",
+              "apps/flight-app/src/assets/css/themify-icons.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/flight-app/src/environments/environment.ts",
+                  "with": "apps/flight-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "flight-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "flight-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "flight-app:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/flight-app/tsconfig.app.json",
+              "apps/flight-app/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/flight-app/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/flight-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "logger-lib": {
+      "projectType": "library",
+      "root": "libs/logger-lib",
+      "sourceRoot": "libs/logger-lib/src",
+      "prefix": "flight-workspace",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/logger-lib/tsconfig.lib.json",
+            "project": "libs/logger-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "libs/logger-lib/ng-package.prod.json",
+              "tsConfig": "libs/logger-lib/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/logger-lib/tsconfig.lib.json",
+              "libs/logger-lib/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/logger-lib/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/logger-lib/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "flight-lib": {
+      "projectType": "library",
+      "root": "libs/flight-lib",
+      "sourceRoot": "libs/flight-lib/src",
+      "prefix": "flight-workspace",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/flight-lib/tsconfig.lib.json",
+            "project": "libs/flight-lib/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/flight-lib/tsconfig.lib.json",
+              "libs/flight-lib/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/flight-lib/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/flight-lib/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "flight-app"
+}

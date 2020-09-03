@@ -1,0 +1,32 @@
+{
+  "npmScope": "flight-workspace",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*",
+    "tsconfig.base.json": "*"
+  },
+  "projects": {
+    "flight-app": {
+      "tags": ["domain:flights"]
+    },
+    "logger-lib": {
+      "tags": ["domain:shared"]
+    },
+    "flight-lib": {
+      "tags": ["domain:flights", "type:domain-logic"]
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "affected": {
+    "defaultBase": "master"
+  }
+}
